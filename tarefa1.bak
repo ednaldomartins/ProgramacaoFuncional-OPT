@@ -27,38 +27,38 @@
   (/ (+ (- b) (sqrt (delta a b c))) (* 2 a))
 )
 
-(define (potencia x y)    ;(8) fazer função para calcular potência em números inteiros, se possível com potência < 0.
+(define (potencia x y) 
   ;é um número inteiro?
   (if (exact? y)
       (if (= y 0)
-          ;true: x = 1
           1
-          ;false: é positivo ou negativo?
+          ;senao faça as contas
           (if (> y 0)
-              ;true: é positivo, então...
+              ;true
               (if (= y 1)
-                  ;true: acabou a recursão
+                  ;true: x
                   x
-                  ;false: continuar calculando recursivamente 
+                  ;false: recursivamente 
                   (* x (potencia x (- y 1)))
               )
-              ;false: é negativo, então...
+              ;false
               (if (= y -1)
-                  ;true: acabou a recursão
-                  (/ 1 x) 
-                  ;false: continuar calculando recursivamente
-                  #|
-                    exemplo: x = 3, y = -2
-                    recursivamente divida entra em (potencia 3 -1):
-                    em (potencia 3 -1) entra no (if (= y -1)) e retorna (/ 1 x)
-                    ou seja, retornar 1/3, logo quando retorna, temos:
-                    (/ (1/3) 3) que é = 1/9 ou 1/3^2 
-                  |#
-                  (/ (potencia x (+ y 1)) x)
+                  ;true: x
+                  ""
+                  ;false:
+                  ""
                )
           )
       )
       ;false: y não é inteiro
       "a potência y não é um número inteiro"
    )
+)
+
+(define (potencia1 x y)
+  ;é um número inteiro?
+  (if (exact? y)
+      "a potência y não é um número inteiro"
+      "teste"
+  )
 )
