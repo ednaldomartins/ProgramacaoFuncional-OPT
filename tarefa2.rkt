@@ -13,7 +13,12 @@
 ;; para resolver o exercício deve-se alterar o corpo da função para uma versão
 ;; que faça os testes passarem
 (define (mult m n)
-  #f)
+  #f
+  (if (= m 0)
+      0
+      (+ n (mult n(- m 1)))
+   )
+)
 
 (define-test-suite testes-mult
   (test-equal? "3 * 4"  (mult 3 4)    12)
