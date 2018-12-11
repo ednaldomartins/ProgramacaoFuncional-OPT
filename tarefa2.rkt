@@ -13,10 +13,9 @@
 ;; para resolver o exercício deve-se alterar o corpo da função para uma versão
 ;; que faça os testes passarem
 (define (mult m n)
-  #f
   (if (= m 0)
       0
-      (+ n (mult n(- m 1)))
+      (+ n (mult n(sub1 m)))
    )
 )
 
@@ -35,10 +34,15 @@
 ;; quando m < n.
 
 (define (sub m n)
-  #f)
+  (if (= n 0)
+      m
+      (sub (- m 1) (- n 1))
+   )  
+)
 
 (define-test-suite testes-sub
   (test-equal? "42 - 0"  (sub 42 0)   42)
+  (test-equal? "2 - 3"  (sub 2 3)   -1)
   (test-equal? "32 - 16" (sub 32 16)  16)
   (test-equal? "42 - 42" (sub 42 42)  0)
   (test-equal? "11 - 10" (sub 11 10)  1))
