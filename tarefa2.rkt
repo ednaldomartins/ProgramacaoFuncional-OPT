@@ -54,10 +54,11 @@
 ;; como definir uma usando a outra (ver observações nas notas de aula).
 
 (define (par n)
-  0)
-
+  (integer? (/ n 2)) 
+)
 (define (impar n)
-  0)
+  (not (par n))
+)
 
 (define-test-suite testes-par-impar
   (test-true "2 é par"         (par 2))
