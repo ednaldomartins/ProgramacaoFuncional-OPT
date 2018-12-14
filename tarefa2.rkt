@@ -196,7 +196,7 @@
   (if (empty? lista)
       #f
       (if (= n 0)
-          (first lista)
+          (first lista);ou (list-ref lista n);acesso direto
           (elemento-n (rest lista) (sub1 n))   
       )
   )
@@ -215,12 +215,13 @@
 ;; maneira. Escreva a função quadrado-lista (abaixo) que, dada uma lista de
 ;; números, obtém uma lista contendo o quadrado de cada número da lista
 ;; original (nas mesmas posições)
-(define (quadrado-lista l)
-  #f)
+(define (quadrado-lista lista)
+  (map * lista lista);tentar fazer recursivamente 
+)
 
 (define-test-suite testes-quadrado-lista
   (test-equal? "quadrado da lista vazia"  (quadrado-lista '())        '())
-  (test-equal? "quadrado de um número"    (quadrado-lista '(5))       25)
+  (test-equal? "quadrado de um número"    (quadrado-lista '(5))       '(25))
   (test-equal? "quadrado de números"
                (quadrado-lista (list 2 5 12 25))
                (list 4 25 144 625)))
@@ -230,8 +231,15 @@
 ;; Agora vamos selecionar itens em uma lista. Crie uma função filtra-par (abaixo)
 ;; que, dado uma lista de números naturais, retorna uma outra lista contendo apenas
 ;; os números pares da lista original. Use a função par definida no exercício 3
-(define (filtra-par l)
-  #f)
+(define (filtra-par lista)
+  (if (empty? lista)
+      lista
+      (if (impar (first lista))
+          (filtra-par (rest lista))
+          (append (first lista) (filtra-par (rest lista)));corrigir: ta retornando um valor
+      )
+  )
+)
 
 (define-test-suite testes-filtra-par
   (test-equal? "filtragem da lista vazia"     (filtra-par '())                  '())
