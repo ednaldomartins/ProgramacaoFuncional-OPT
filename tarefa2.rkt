@@ -75,7 +75,9 @@
 
 ;; Altere a definição de lista-ex4, abaixo, para que ela contenha os números
 ;; de 1 a 5, em ordem crescente, usando apenas cons e a lista vazia
-(define lista-ex4 '())
+(define lista-ex4
+  (cons 1(cons 2(cons 3(cons 4(cons 5 '())))))
+)
 
 ;; para não entregar a resposta no teste, vamos construir a resposta de outra forma...
 (define-test-suite teste-ex4
@@ -85,7 +87,9 @@
 
 ;; Altere a definição de lista-ex5, abaixo, para que ela contenha os números
 ;; de 1 a 5, em ordem crescente, usando a notação com apóstrofo ou a função list
-(define lista-ex5 '())
+(define lista-ex5
+  (list 1 2 3 4 5)
+)
 
 (define-test-suite teste-ex5
   (test-equal? "numeros de 1 a 5" lista-ex5 (range 1 6)))
@@ -98,7 +102,9 @@
 
 ;; Altere a definição da variável elem3-lista6, abaixo, para que ele tenha
 ;; o valor do terceiro elemento de lista6, usando apenas as funções first e rest
-(define elem3-lista6 #f)
+(define elem3-lista6
+  (first (rest (rest lista6)))
+)
 
 (define-test-suite teste-ex6
   (test-equal? "elem3-lista6 deve ser 33" elem3-lista6 33))
@@ -107,8 +113,10 @@
 
 ;; Escreva a função terceiro-elemento, abaixo, que retorna sempre o terceiro
 ;; elemento da lista l. Suponha que l sempre tenha 3 elementos ou mais.
-(define (terceiro-elemento l)
-  #f)
+(define (terceiro-elemento lista)
+  ;first|car. rest|cdr
+  (first (rest (rest lista)))
+)
 
 (define-test-suite testes-terceiro-elemento
   (test-equal? "3o de '(1 2 3)" (terceiro-elemento (list 1 2 3))   3)
@@ -121,8 +129,12 @@
 
 ;; Crie uma função recursiva soma-lista (abaixo) que, dada uma lista de números,
 ;; calcula a soma dos números contidos
-(define (soma-lista l)
-  #f)
+(define (soma-lista lista)
+  (if (empty? lista)
+      0;lista vazia ou fim da lista
+      (+ (first lista) (soma-lista (rest lista)))
+  )
+)
 
 (define-test-suite testes-soma-lista
   (test-equal? "soma da lista vazia"                (soma-lista '())                  0)
@@ -135,8 +147,12 @@
 
 ;; Crie uma função recursiva mult-lista (abaixo) que, dada uma lista de números,
 ;; calcula o produto dos números contidos (a lista vazia deve ter produto igual a 1)
-(define (mult-lista l)
-  #f)
+(define (mult-lista lista)
+  (if (empty? lista)
+      1;lista vazia ou fim da lista
+      (* (first lista) (mult-lista (rest lista)))
+  )
+)
 
 (define-test-suite testes-mult-lista
   (test-equal? "produto da lista vazia"            (mult-lista '())                  1)
@@ -149,9 +165,20 @@
 
 ;; Crie uma função recursiva max-lista (abaixo) que, dada uma lista de números naturais,
 ;; calcula o maior número entre os presentes na lista. Use (max-lista '()) = 0.
-(define (max-lista l)
-  #f)
+(define (max-lista lista)
+  (if (empty? lista)
+      0;
+      (if (< (length lista) 2)
+         (first lista)
+         (if(> (first lista) (max-lista(rest lista)))
+            (first lista)
+            (max-lista (rest lista))
+         )
+      )  
+  )
+)
 
+  
 (define-test-suite testes-max-lista
   (test-equal? "maximo da lista vazia"       (max-lista '())                     0)
   (test-equal? "maximo de lista unitaria"    (max-lista '(22))                   22)
@@ -166,7 +193,14 @@
 ;; elemento da lista, contando a partir de zero. Se n é maior ou igual ao
 ;; tamanho da lista, a função deve retornar #f (veja os testes para exemplos
 (define (elemento-n lista n)
-  '())  ;; usando '() ao inves de #f pois #f é um valor de retorno válido
+  (if (empty? lista)
+      #f
+      (if (= n 0)
+          (first lista)
+          (elemento-n (rest lista) (sub1 n))   
+      )
+  )
+)  ;; usando '() ao inves de #f pois #f é um valor de retorno válido
 
 (define-test-suite testes-elemento-n
   (test-equal? "elemento de lista vazia" (elemento-n '() 0)                #f)
